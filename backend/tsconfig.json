@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src", // srcディレクトリをベースにする
+    "paths": {
+      "*": ["*"]
+    },
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "ES6",
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
