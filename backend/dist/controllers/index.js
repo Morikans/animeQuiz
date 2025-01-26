@@ -17,3 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./registerController"), exports);
 __exportStar(require("./loginController"), exports);
 __exportStar(require("./getUserDataController"), exports);
+__exportStar(require("./updateUserDataController"), exports);
