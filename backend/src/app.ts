@@ -7,8 +7,8 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const corsOptions = {
-  origin: "http://localhost:3000", // 許可するオリジンを指定
-  credentials: true, // クッキーや認証情報を許可
+    origin: "http://localhost:3000", // 許可するオリジンを指定
+    credentials: true, // クッキーや認証情報を許可
 };
 
 const app = express();
