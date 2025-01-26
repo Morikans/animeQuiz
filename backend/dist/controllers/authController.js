@@ -56,6 +56,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const token = (0, jwt_1.generateJWT)(user.id);
+        (0, jwt_1.storeJWT)(res, token);
         res.json({ token });
     }
     catch (error) {

@@ -4,8 +4,8 @@ exports.authenticateToken = void 0;
 const jwt_1 = require("../utils/jwt");
 // 認証ミドルウェア
 const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers.authorization; // リクエストヘッダーのauthorizationを取ってくる
-    const token = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(" ")[1]; // Bearer <トークン>が取れるので、splitで[Bearer, <トークン>]として、トークンのみを取得する。
+    const token = req.cookies.jwt; // リクエストヘッダーのauthorizationを取ってくる
+    // const token = authHeader?.split(" ")[1]; // Bearer <トークン>が取れるので、splitで[Bearer, <トークン>]として、トークンのみを取得する。
     if (!token) {
         res.status(401).json({ error: "トークンが存在しません" });
         return;

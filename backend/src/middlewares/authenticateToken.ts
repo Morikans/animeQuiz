@@ -12,8 +12,8 @@ export const authenticateToken = (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization; // リクエストヘッダーのauthorizationを取ってくる
-  const token = authHeader?.split(" ")[1]; // Bearer <トークン>が取れるので、splitで[Bearer, <トークン>]として、トークンのみを取得する。
+  const token = req.cookies.jwt; // リクエストヘッダーのauthorizationを取ってくる
+  // const token = authHeader?.split(" ")[1]; // Bearer <トークン>が取れるので、splitで[Bearer, <トークン>]として、トークンのみを取得する。
 
   if (!token) {
     res.status(401).json({ error: "トークンが存在しません" });

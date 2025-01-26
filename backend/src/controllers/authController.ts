@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { generateJWT } from "../utils/jwt";
+import { generateJWT, storeJWT } from "../utils/jwt";
 
 const prisma = new PrismaClient();
 
@@ -47,6 +47,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = generateJWT(user.id);
+    storeJWT(res, token);
     res.json({ token });
   } catch (error) {
     res.status(500).json({ error: "サーバーエラーです。" });
