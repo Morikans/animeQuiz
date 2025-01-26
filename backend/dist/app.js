@@ -14,7 +14,7 @@ const corsOptions = {
     credentials: true, // クッキーや認証情報を許可
 };
 const app = (0, express_1.default)();
-// cookieから直接データを取ってくるために必要なミドルウェア
+// cookieから直接データを取ってくるために必要なミドルウェア(req.cookies.jwt)
 app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());

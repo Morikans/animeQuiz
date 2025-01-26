@@ -12,7 +12,7 @@ const corsOptions = {
 };
 
 const app = express();
-// cookieから直接データを取ってくるために必要なミドルウェア
+// cookieから直接データを取ってくるために必要なミドルウェア(req.cookies.jwt)
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
