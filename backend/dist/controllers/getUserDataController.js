@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserData = void 0;
+exports.getUser = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-const getUserData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.user.userId;
         // ユーザー情報をIDで取得
@@ -36,4 +36,4 @@ const getUserData = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         return;
     }
 });
-exports.getUserData = getUserData;
+exports.getUser = getUser;

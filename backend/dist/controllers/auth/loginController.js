@@ -8,32 +8,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = void 0;
+exports.login = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const client_1 = require("@prisma/client");
+const jwt_1 = require("../../utils/jwt");
 const prisma = new client_1.PrismaClient();
-const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// ログイン
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
     try {
-        const userId = req.user.userId;
-        // ユーザー情報をIDで取得
         const user = yield prisma.user.findUnique({
-            where: {
-                id: userId, // IDで検索
-            },
+            where: { email },
         });
-        // ユーザーが見つからなかった場合の処理
         if (!user) {
-            res.status(404).json({ error: "ユーザーが見つかりません" });
+            res.status(400).json({ error: "ユーザーが見つかりません" });
             return;
         }
-        // ユーザー情報をレスポンスとして返す
-        res.status(200).json(user);
-        return;
+        const isPasswordValid = yield bcryptjs_1.default.compare(password, user.password);
+        if (!isPasswordValid) {
+            res.status(401).json({ error: "パスワードが違います" });
+            return;
+        }
+        const token = (0, jwt_1.generateJWT)(user.id);
+        (0, jwt_1.storeJWT)(res, token);
+        res.json({ token });
     }
     catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "サーバーエラー" });
-        return;
+        res.status(500).json({ error: "サーバーエラーです。" });
     }
 });
-exports.getUser = getUser;
+exports.login = login;

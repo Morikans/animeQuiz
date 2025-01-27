@@ -14,7 +14,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./registerController"), exports);
-__exportStar(require("./loginController"), exports);
-__exportStar(require("./getUserDataController"), exports);
-__exportStar(require("./updateUserDataController"), exports);
+__exportStar(require("./auth/registerController"), exports);
+__exportStar(require("./auth/loginController"), exports);
+__exportStar(require("./user/getUserController"), exports);
+__exportStar(require("./user/updateUserController"), exports);
+__exportStar(require("./result/postResultController"), exports);

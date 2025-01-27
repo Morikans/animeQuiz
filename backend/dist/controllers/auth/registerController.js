@@ -8,32 +8,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = void 0;
+exports.register = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// 新規登録
+const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
     try {
-        const userId = req.user.userId;
-        // ユーザー情報をIDで取得
-        const user = yield prisma.user.findUnique({
-            where: {
-                id: userId, // IDで検索
+        // パスワードのハッシュ化
+        const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
+        // ユーザー作成
+        const user = yield prisma.user.create({
+            data: {
+                email,
+                password: hashedPassword,
             },
         });
-        // ユーザーが見つからなかった場合の処理
-        if (!user) {
-            res.status(404).json({ error: "ユーザーが見つかりません" });
-            return;
-        }
-        // ユーザー情報をレスポンスとして返す
-        res.status(200).json(user);
-        return;
+        res.status(201).json({ message: "新規登録が完了しました！", user });
     }
     catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "サーバーエラー" });
-        return;
+        res.status(500).json({
+            error: "ユーザーが既に存在するか、サーバーエラーです。",
+        });
     }
 });
-exports.getUser = getUser;
+exports.register = register;

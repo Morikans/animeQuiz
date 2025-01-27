@@ -4,7 +4,7 @@ import { AuthenticatedRequest } from "middlewares/authenticateToken";
 
 const prisma = new PrismaClient();
 
-export const getUserData = async (
+export const getUser = async (
     req: AuthenticatedRequest,
     res: Response
 ): Promise<void> => {

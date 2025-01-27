@@ -9,25 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUser = void 0;
+exports.updateUser = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.user.userId;
-        // ユーザー情報をIDで取得
-        const user = yield prisma.user.findUnique({
-            where: {
-                id: userId, // IDで検索
-            },
-        });
-        // ユーザーが見つからなかった場合の処理
-        if (!user) {
-            res.status(404).json({ error: "ユーザーが見つかりません" });
+        const { name } = req.body;
+        if (!name) {
+            res.status(400).json({ error: "名前は必須です" });
             return;
         }
-        // ユーザー情報をレスポンスとして返す
-        res.status(200).json(user);
+        /// Prismaを使ってユーザー情報を更新
+        const updatedUser = yield prisma.user.update({
+            where: {
+                id: userId, // 更新するユーザーIDを指定
+            },
+            data: {
+                name, // 新しい名前
+            },
+        });
+        // 更新されたユーザー情報をレスポンスとして返す
+        res.status(200).json(updatedUser);
         return;
     }
     catch (error) {
@@ -36,4 +39,4 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
 });
-exports.getUser = getUser;
+exports.updateUser = updateUser;

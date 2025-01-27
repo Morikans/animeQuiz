@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoutes from "./routes/authRoutes";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { authRoutes, resultRoutes, userDataRoutes } from "./routes";
 
 dotenv.config();
 
@@ -18,5 +18,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/auth", authRoutes);
+app.use("/user", userDataRoutes);
+app.use("/result", resultRoutes);
 
 export default app;
