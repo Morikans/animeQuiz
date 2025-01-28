@@ -14,7 +14,7 @@ const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = req.user.userId;
+        const userId = req.user.id;
         // ユーザー情報をIDで取得
         const user = yield prisma.user.findUnique({
             where: {

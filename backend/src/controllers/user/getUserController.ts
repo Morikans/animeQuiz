@@ -9,7 +9,7 @@ export const getUser = async (
     res: Response
 ): Promise<void> => {
     try {
-        const userId = req.user.userId;
+        const userId = req.user.id;
         // ユーザー情報をIDで取得
         const user = await prisma.user.findUnique({
             where: {

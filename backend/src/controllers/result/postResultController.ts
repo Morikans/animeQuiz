@@ -9,7 +9,7 @@ export const postResult = async (
     res: Response
 ): Promise<void> => {
     try {
-        const userId = req.user.userId;
+        const userId = req.user.id;
         const { score, quizName } = req.body;
         const result = await prisma.result.create({
             data: {
@@ -18,7 +18,7 @@ export const postResult = async (
                 quizName,
             },
         });
-
+        res.json({ message: result });
         console.log(result);
     } catch (error) {
         console.error(error);

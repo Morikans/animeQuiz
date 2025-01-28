@@ -14,7 +14,7 @@ const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = req.user.userId;
+        const userId = req.user.id;
         const { name } = req.body;
         if (!name) {
             res.status(400).json({ error: "名前は必須です" });

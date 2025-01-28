@@ -14,7 +14,7 @@ const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 const postResult = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userId = req.user.userId;
+        const userId = req.user.id;
         const { score, quizName } = req.body;
         const result = yield prisma.result.create({
             data: {
@@ -23,6 +23,7 @@ const postResult = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 quizName,
             },
         });
+        res.json({ message: result });
         console.log(result);
     }
     catch (error) {

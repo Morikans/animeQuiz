@@ -20,6 +20,7 @@ model User {
   name      String @default("")
   createdAt DateTime @default(now())
   results   Result[]
+  refreshTokens  RefreshToken[]
 }
 
 model Result {
@@ -29,4 +30,13 @@ model Result {
   score     Int      // 獲得したスコア
   quizName  String   // クイズ名
   playedAt  DateTime @default(now()) // プレイ日時
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  expiresAt DateTime
 }
